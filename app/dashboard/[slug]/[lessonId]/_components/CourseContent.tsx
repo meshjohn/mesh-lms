@@ -59,7 +59,7 @@ export function CourseContent({ data }: iAppProps) {
   function onSubmit() {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(
-        markLessonComplete(data.id, data.Chapter?.courseId)
+        markLessonComplete(data.id, data.Chapter?.courseId ?? "")
       );
       if (error) {
         toast.error("An unexpected error occurred. Please try again.");

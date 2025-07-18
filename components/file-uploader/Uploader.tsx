@@ -27,7 +27,7 @@ interface UploaderState {
 
 interface iAppProps {
   value?: string;
-  onChange?: () => void;
+  onChange?: (value: string) => void;
   fileTypeAccepted: "image" | "video";
 }
 

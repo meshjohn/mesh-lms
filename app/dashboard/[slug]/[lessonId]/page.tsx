@@ -1,6 +1,6 @@
 import { getLessonContent } from "@/app/data/course/get-lesson-content";
 import { CourseContent } from "./_components/CourseContent";
-import { Suspense, use } from "react";
+import { Suspense } from "react";
 import { LessonSkeleton } from "./_components/LessonSkeleton";
 
 export default async function LessonContentPage({
@@ -8,13 +8,15 @@ export default async function LessonContentPage({
 }: {
   params: Promise<{ lessonId: string }>;
 }) {
-  const { lessonId } = await params;
 
+  const { lessonId } = await params;
+  
   return (
     <Suspense fallback={<LessonSkeleton />}>
       <LessonContentLoader lessonId={lessonId} />;
     </Suspense>
   );
+
 }
 
 async function LessonContentLoader({ lessonId }: { lessonId: string }) {
