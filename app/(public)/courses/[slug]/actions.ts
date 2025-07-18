@@ -35,7 +35,7 @@ export async function enrollInCourseAction(
         message: "You have been blocked",
       };
     }
-    
+
     const course = await prisma.course.findUnique({
       where: {
         id: courseId,
@@ -45,6 +45,8 @@ export async function enrollInCourseAction(
         title: true,
         price: true,
         slug: true,
+        stripePriceId: true,
+        fileKey: true,
       },
     });
     if (!course) {
@@ -130,8 +132,17 @@ export async function enrollInCourseAction(
         customer: stripeCustomerId,
         line_items: [
           {
-            price: "price_1RkPbSISJQBvlqSElLaAsj59",
             quantity: 1,
+            price_data: {
+              currency: "usd",
+              unit_amount: course.price * 100,
+              product_data: {
+                name: course.title,
+                images: [
+                  `https://${env.NEXT_PUBLIC_S3_BUCKET_IMAGES}.fly.storage.tigris.dev/${course.fileKey}`,
+                ],
+              },
+            },
           },
         ],
         mode: "payment",
