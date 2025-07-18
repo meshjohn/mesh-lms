@@ -35,7 +35,7 @@ model User {
 
   stripeCustomerId String? @unique
 
-  role       Role      @default(user)
+  role       Role      @default(admin)
   banned     Boolean?
   banReason  String?
   banExpires DateTime?
@@ -158,7 +158,7 @@ model Lesson {
 model Enrollment {
   id        String           @id @default(uuid())
   amount    Int
-  status    EnrollmentStatus @default(Pending)
+  status    EnrollmentStatus @default(Active)
   createdAt DateTime         @default(now())
   updatedAt DateTime         @updatedAt
 
